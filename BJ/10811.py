@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 n,m = map(int, input().split())
 array_a = [0] * (n)
 
@@ -11,3 +12,5 @@ for _ in range(len(array_a)):
     print(array_a[_], end= " ")
 
 #succes!
+=======
+>>>>>>> 4cb7c0ea3d9cb514fd105a81ae6fdd6d57b7f88f
