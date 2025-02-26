@@ -38,6 +38,7 @@ def run_calculator():
 
             if user_input.lower() == "exit":
                 print("계산기를 종료합니다.")
+                print(result)
                 break
             elif user_input == "=":
                 print(f"현재 결과: {result}")
