@@ -14,7 +14,7 @@ class Calculator:
         return a / b
 
     def power(self, a, b):
-        return a ** b  # 제곱 연산
+        return a ** b  
 
 # 계산기 실행 함수
 def run_calculator():
