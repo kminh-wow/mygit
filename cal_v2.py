@@ -65,7 +65,7 @@ def run_calculator():
                 print(f"결과: {result}")
 
             except ValueError:
-                print("올바른 형식으로 입력하세요. (예: + 3, * 2)")
+                print("올바른 형식으로 입력하세요. (예: + 3, * 2, 연산자와 숫자 공백 필수)")
             except Exception as e:
                 print(f"오류 발생: {e}")
 
