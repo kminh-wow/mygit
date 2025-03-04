@@ -3,9 +3,10 @@
     "runner": "terminal",
     "type": "shell",
     "echoCommand": true,
-    "presentation": { "reveal": "always" },
+    "presentation": {
+        "reveal": "always"
+    },
     "tasks": [
-        // C++ 컴파일
         {
             "label": "save and compile for C++",
             "command": "g++ -std=c++23",
@@ -14,7 +15,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
-            "group": { "kind": "build", "isDefault": true },
+            "group": "build",
             "problemMatcher": {
                 "fileLocation": [
                     "relative",
@@ -30,7 +31,6 @@
                 }
             }
         },
-        // C 컴파일
         {
             "label": "save and compile for C",
             "command": "gcc -std=c23",
@@ -39,7 +39,7 @@
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
-            "group": { "kind": "build", "isDefault": true },
+            "group": "build",
             "problemMatcher": {
                 "fileLocation": [
                     "relative",
@@ -55,14 +55,40 @@
                 }
             }
         },
-        // 바이너리 실행 (Windows)
         {
             "label": "execute",
             "command": "cmd",
-            "group": { "kind": "test", "isDefault": true },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
             "args": [
-                "/C", "${fileDirname}\\${fileBasenameNoExtension}"
+                "/C",
+                "${fileDirname}\\${fileBasenameNoExtension}"
             ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc.exe 활성 파일 빌드",
+            "command": "C:/mingw64/bin/gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "C:/mingw64/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "디버거에서 생성된 작업입니다."
         }
     ]
 }
