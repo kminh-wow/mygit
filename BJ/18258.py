@@ -10,7 +10,7 @@ def pop():
         print('-1')
     else:
         print(que[0])
-        que.remove[0]
+        que.pop[0]
         
 def size():
     print(len(que))
