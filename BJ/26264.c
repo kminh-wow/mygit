@@ -3,7 +3,7 @@
 
 int main(){
     int N;
-    char Answer[100001];
+    char Answer[800001];
 
     scanf("%d", &N);
     scanf("%s", Answer);
@@ -39,4 +39,6 @@ int main(){
     }
 
     return 0;
+    // 입력값보다 배열이 작으면 segfault 발생!!
+    
 }
