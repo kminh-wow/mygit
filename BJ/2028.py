@@ -1,15 +1,14 @@
 t = int(input())
 
-for i in range(t):
+for _ in range(t):
     n = int(input())
-    nn = n**2
-    if n%10 == n:
-        if nn%10 == n:
-            print('YES')
-        else:
-            print('NO')
+    nn = n ** 2  
+
+    
+    num_digits = len(str(n))  
+    last_digits = nn % (10 ** num_digits) 
+    
+    if last_digits == n:
+        print("YES")
     else:
-        if nn%100 == n:
-            print('YES')
-        else:
-            print('NO')
+        print("NO")
