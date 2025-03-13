@@ -4,34 +4,34 @@ import numpy as np
 import ast
 from fractions import Fraction
 
-def matrix(input_str):
-    """ 입력 문자열을 2차원 리스트로 변환 (단순 분수 계산 지원) """
+def parse_matrix(input_str):
+    """ 입력 문자열을 2차원 리스트로 변환 (분수 처리 지원) """
     try:
         matrix = ast.literal_eval(input_str)  # 문자열을 리스트로 변환
         return np.array([[Fraction(str(x)) for x in row] for row in matrix])  # 요소를 분수로 변환
     except Exception as e:
         raise ValueError(f"잘못된 행렬 형식! (예: [[1,2],[3,4]])\n오류: {e}")
 
-def scalar(input_str):
+def parse_scalar(input_str):
     """ 입력값이 단순한 숫자 또는 분수라면 Fraction으로 변환 """
     try:
         return Fraction(input_str)
     except Exception as e:
         raise ValueError(f"잘못된 상수 입력! (예: 3 또는 1/2)\n오류: {e}")
 
-def print_result(matrix):
-    """ 행렬 결과를 보기 쉽게 문자열로 변환 """
-    return np.array2string(matrix, separator=", ")
+def format_result(matrix):
+    """ 행렬 결과를 보기 쉽게 문자열로 변환 (Fraction을 1/2 형태로 표시) """
+    return np.array2string(np.vectorize(str)(matrix), separator=", ")
 
 def calculate():
     try:
-        A = matrix(entry_A.get())  # A를 행렬로 변환
-        operation = operation_var.get()  # 연산 선택
+        A = parse_matrix(entry_A.get())  # A를 행렬로 변환
+        operation = operation_var.get()  # 선택한 연산
 
         if operation in ["곱셈", "덧셈", "뺄셈"]:
-            B = matrix(entry_B.get())  # B를 행렬로 변환
+            B = parse_matrix(entry_B.get())  # B를 행렬로 변환
         elif operation == "상수배":
-            scalar = scalar(entry_B.get())  # 상수 Fraction 변환
+            scalar = parse_scalar(entry_B.get())  # 상수를 Fraction으로 변환
 
         if operation == "곱셈":
             if A.shape[1] != B.shape[0]:
@@ -53,7 +53,7 @@ def calculate():
                 messagebox.showerror("오류", "역행렬을 구하려면 정사각 행렬이어야 함!")
                 return
             try:
-                result = np.linalg.inv(A).astype(Fraction)  # 역행렬 Fraction 변환
+                result = np.linalg.inv(A).astype(Fraction)  # 역행렬을 Fraction으로 변환
             except np.linalg.LinAlgError:
                 messagebox.showerror("오류", "이 행렬은 역행렬이 존재하지 않음!")
                 return
@@ -63,7 +63,7 @@ def calculate():
             messagebox.showerror("오류", "연산 선택!")
             return
 
-        result_label.config(text=f"결과:\n{print_result(result)}")  # 결과를 보기 쉽게 출력
+        result_label.config(text=f"결과:\n{format_result(result)}")  # 결과를 보기 쉽게 출력
 
     except Exception as e:
         messagebox.showerror("입력 오류", str(e))
