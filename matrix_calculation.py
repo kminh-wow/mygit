@@ -5,12 +5,15 @@ import ast
 from fractions import Fraction
 
 def parse_matrix(input_str):
-    """ 입력 문자열을 2차원 리스트로 변환 (분수 처리 지원) """
+    """ 입력 문자열을 2차원 리스트로 변환 (간단한 형식 지원) """
     try:
+        # 리스트 자동 보정정
+        if not input_str.startswith('['):
+            input_str = f"[{input_str}]"
         matrix = ast.literal_eval(input_str)  # 문자열을 리스트로 변환
         return np.array([[Fraction(str(x)) for x in row] for row in matrix])  # 요소를 분수로 변환
     except Exception as e:
-        raise ValueError(f"잘못된 행렬 형식! (예: [[1,2],[3,4]])\n오류: {e}")
+        raise ValueError(f"잘못된 행렬 형식! (예: [1,1],[1,1])\n오류: {e}")
 
 def parse_scalar(input_str):
     """ 입력값이 단순한 숫자 또는 분수라면 Fraction으로 변환 """
@@ -72,17 +75,22 @@ def calculate():
 root = tk.Tk()
 root.title("행렬 계산기 (분수 지원)")
 
-tk.Label(root, text="행렬 A 입력 (예: [[1,2],[3,4]] 또는 [[1/2,1],[3,4]])").pack()
+tk.Label(root, text="행렬 A 입력 (예: [1,1],[1,1] 또는 [1/2,1],[3,4])").pack()
 entry_A = tk.Entry(root, width=40)
 entry_A.pack()
 
-tk.Label(root, text="행렬 B 또는 상수 입력 (예: [[5,6],[7,8]] 또는 3 또는 1/2)").pack()
+tk.Label(root, text="행렬 B 또는 상수 입력 (예: [5,6],[7,8] 또는 3 또는 1/2)").pack()
 entry_B = tk.Entry(root, width=40)
 entry_B.pack()
 
 operation_var = tk.StringVar()
 tk.Label(root, text="연산 선택").pack()
-tk.OptionMenu(root, operation_var, "덧셈", "뺄셈", "곱셈", "역행렬", "상수배").pack()
+
+operations_frame = tk.Frame(root)
+operations_frame.pack()
+operations = ["덧셈", "뺄셈", "곱셈", "역행렬", "상수배"]
+for op in operations:
+    tk.Radiobutton(operations_frame, text=op, variable=operation_var, value=op).pack(side=tk.LEFT)
 
 tk.Button(root, text="계산하기", command=calculate).pack(pady=10)
 
