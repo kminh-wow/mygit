@@ -92,7 +92,7 @@ operations = ["덧셈", "뺄셈", "곱셈", "역행렬", "상수배"]
 for op in operations:
     tk.Radiobutton(operations_frame, text=op, variable=operation_var, value=op).pack(side=tk.LEFT)
 
-tk.Button(root, text="계산하기", command=calculate).pack(pady=10)
+tk.Button(root, text="계산", command=calculate).pack(pady=10)
 
 result_label = tk.Label(root, text="결과:")
 result_label.pack()
