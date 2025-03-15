@@ -20,7 +20,7 @@ def parse_scalar(input_str):
     try:
         return Fraction(input_str)
     except Exception as e:
-        raise ValueError(f"잘못된 상수 입력! (예: 3 또는 1/2)\n오류: {e}")
+        raise ValueError(f"잘못된 상수 입력 (예: 3 또는 1/2)\n오류: {e}")
 
 def format_result(matrix):
     """ 행렬 결과를 보기 쉽게 문자열로 변환 (Fraction을 1/2 형태로 표시) """
