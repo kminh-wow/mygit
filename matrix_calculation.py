@@ -55,8 +55,12 @@ def calculate():
             if A.shape[0] != A.shape[1]:
                 messagebox.showerror("오류", "역행렬을 구하려면 정사각 행렬이어야 함!")
                 return
+            # Fraction 배열을 float으로 변환 후 역행렬 계산
+            A_float = A.astype(float)
             try:
-                result = np.linalg.inv(A).astype(Fraction)  # 역행렬을 Fraction으로 변환
+                inv_A_float = np.linalg.inv(A_float)
+                # 결과를 다시 Fraction으로 변환
+                result = np.array([[Fraction.from_float(x).limit_denominator() for x in row] for row in inv_A_float])
             except np.linalg.LinAlgError:
                 messagebox.showerror("오류", "이 행렬은 역행렬이 존재하지 않음!")
                 return
@@ -70,7 +74,6 @@ def calculate():
 
     except Exception as e:
         messagebox.showerror("입력 오류", str(e))
-
 # GUI 구성
 root = tk.Tk()
 root.title("행렬 계산기 (분수 지원)")
